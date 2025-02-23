@@ -1,0 +1,60 @@
+{% load static %}
+<html>
+<head>
+<title>TeachSync</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+</head>
+  <body class="third">
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Faculty Dashboard</h2>
+            <ul> 
+     <li><a href="{% url 'SubjectsSchedules' %}">Manage Teaching Subjects & Schedules</a></li>
+	 <li><a href="{% url 'ManagePublications' %}">Manage Publications</a></li>
+	 <li><a href="{% url 'UploadMarks' %}">Add Marksheets</a></li>
+	  <li><a href="{% url 'Engagement' %}">Engagements</a></li>
+	 <li><a href="{% url 'index' %}">Logout</a></li>
+   </ul>          
+  </div>
+
+  <div class="main">
+      <h2>Dashboard</h2>
+      <div class="student-data">
+        <p> Welcome to Faculty Dashboard</p>
+        {% if manage_subjects_schedules %}
+        <div id="subjects-schedules-data" >
+            <h3>Subjects Schedules</h3>
+            {{ data|safe }}
+        </div>
+        {% endif %}
+
+        {% if manage_publication_data %}
+        <div id="publication-data">
+            <h3>Publications</h3>
+            {{ data|safe }}
+        </div>
+        {% endif %}
+
+
+
+        {% if upload_marks_data %}
+            <div id="marks-data">
+                <h3>Marks Data</h3>
+                {{ data|safe }}
+            </div>
+        {% endif %}
+
+        {% if make_engagement_data %}
+            <div id="engagement-data " >
+                <h3>Engagement Data</h3>
+                {{ data|safe }}
+            </div>
+        {% endif %}
+          </div>
+  </div>
+</div>
+       
+  </body>
+</html>

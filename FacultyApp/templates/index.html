@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachSync</title>
+    <link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="hero-section">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Welcome to <span class="highlight">TeachSync</span></h1>
+            <p>Faculty and Student Engagement System</p>
+            <div class="button-group">
+                <a href="{% url 'AdminLogin' %}" class="btn">Admin Login</a>
+                <a href="{% url 'FacultyLogin' %}" class="btn">Faculty Login</a>
+                <a href="{% url 'StudentLogin' %}" class="btn">Student Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

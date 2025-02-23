@@ -1,0 +1,59 @@
+create database facultyapp;
+use facultyapp;
+
+create table faculty(faculty_name varchar(40),
+gender varchar(20),
+contact_no varchar(20),
+email varchar(50), 
+qualification varchar(65),
+experience varchar(45),
+teaching_subjects varchar(55),
+username varchar(50),
+password varchar(50));
+
+create table student(student_name varchar(40),
+gender varchar(20),
+contact_no varchar(20),
+email varchar(50), 
+course varchar(50),
+course_year varchar(50),
+username varchar(50),
+password varchar(50));
+
+create table schedule(faculty_name varchar(40),
+subject varchar(40),
+course varchar(40),
+course_year varchar(40),
+lecture_room varchar(40),
+covering_topic varchar(100),
+lecture_date varchar(40));
+
+create table publication(username varchar(40),
+paper_title varchar(80),
+aurhor_list varchar(80),
+journal_name varchar(30),
+issue_no varchar(50),
+total_pages varchar(50),
+publisher_name varchar(50),
+publish_date varchar(40),
+indexing varchar(20),
+doi_no varchar(30),
+publish_url varchar(60),
+filename varchar(50),
+upload_date varchar(30));
+
+create table marks(faculty_name varchar(40),
+course varchar(40),
+course_year varchar(40),
+result_description varchar(40),
+sheet_name varchar(100),
+upload_date varchar(40));
+
+create table engagement(faculty_name varchar(40),
+engagement_desc varchar(40),
+from_date varchar(30),
+to_date varchar(30),
+venue varchar(40),
+place varchar(40),
+state varchar(40),
+engagement_type varchar(30));

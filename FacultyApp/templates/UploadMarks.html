@@ -1,0 +1,70 @@
+
+{% load static %}
+<html>
+<head>
+<title>TeachSync</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+<script language="javascript">
+function validate(formObj) {
+if(formObj.t1.value.length==0) {
+alert("Please Enter Course name");
+formObj.t1.focus();
+return false;
+}
+if(formObj.t3.value.length==0) {
+alert("Please Enter result description");
+formObj.t3.focus();
+return false;
+}
+if(formObj.t4.value.length==0) {
+alert("Please upload marksheet");
+formObj.t4.focus();
+return false;
+}
+return true;
+}
+</script>
+<script language="javascript" type="text/javascript" src="{% static 'datetimepicker.js' %}">
+</script>
+</head>
+<body class="third">
+<div class="dashboard">
+<div class="sidebar">
+<h2>Faculty Dashboard</h2>
+<ul>
+<li><a href="{% url 'SubjectsSchedules' %}">Manage Teaching Subjects &Schedules</a></li>
+<li><a href="{% url 'ManagePublications' %}">Manage Publications</a></li>
+<li><a href="{% url 'UploadMarks' %}">Add Marksheets</a></li>
+<li><a href="{% url 'Engagement' %}">Engagements</a></li>
+<li><a href="{% url 'index' %}">Logout</a></li>
+</ul>
+</div>
+<div class="main">
+<h2>Add Marks</h2>
+<div class="card-container">
+<form name="f1" method="post" action={% url 'UploadMarksAction' %} enctype="multipart/form-data" onsubmit="return validate(this);">
+{% csrf_token %}
+<center><font size="" color="red"><center>{{ data }}</center></font>
+<div class="form-container">
+<table align="center" width="30%" >
+<tr><td>Course&nbsp;Name</td>
+<td><input type="text" name="t1" style="font-family: Comic Sans MS" size="30"></td></tr>
+<tr><td>Year</td><td><Select name="t2">
+<option value="First Year">First Year</option>
+<option value="Second Year">Second Year</option>
+<option value="Third Year">Third Year</option>
+<option value="Fourth Year">Fourth Year</option>
+</td></td></tr>
+<tr><td>Results&nbsp;Description</td>
+<td><input type="text" name="t3" style="font-family: Comic Sans MS" size="30"></td></tr>
+<tr><td>Upload&nbsp;Marksheet</td><td><input name="t4" type="file" size="20"></td></td></tr>
+<tr><td></td><td><div class="submit-container"><input type="submit" value="Submit"></td></div>
+</table>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

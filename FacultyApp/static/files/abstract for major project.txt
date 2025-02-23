@@ -1,0 +1,9 @@
+Faculty and student engagement system
+Abstract:
+The Faculty Management System is an online application designed to streamline interactions between faculty and students.
+Admins can manage user accounts, while faculty can schedule classes, upload marks, and handle professional responsibilities.
+Students can view their grades and lecture schedules.
+By incorporating Natural Language Processing (NLP) algorithms, the system enhances communication, allowing users to easily search for information and receive personalized notifications.
+This project aims to improve efficiency and engagement in educational environments. Overall, it provides a centralized platform for academic management.
+
+*TeachSync: Faculty and student engagement system**! This innovative online platform streamlines interactions between faculty and students, centralizing all academic management tasks in one user-friendly application. With features like class scheduling, mark uploads, and personalized notifications powered by NLP, we’re enhancing the educational experience for everyone. 

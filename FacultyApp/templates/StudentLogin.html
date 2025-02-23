@@ -1,0 +1,56 @@
+{% load static %}
+<html>
+<head>
+<title>TeachSync</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+<script language="javascript">
+	function validate(formObj)
+	{
+	if(formObj.t1.value.length==0)
+	{
+	alert("Please Enter Username");
+	formObj.t1.focus();
+	return false;
+	}
+	if(formObj.t2.value.length==0)
+	{
+	alert("Please Enter Password");
+	formObj.t2.focus();
+	return false;
+	}
+	formObj.actionUpdateData.value="update";
+	return true;
+	}
+	</script>
+	
+	
+</head>
+<body class="student">
+	<div class="login-page">
+		<div class="login-card">
+	
+		<div class="login-box">
+		<h2>Student Login </h2>
+		<font size="" color="red"><center>{{ data }}</center></font>
+		<form name="f1" method="post" action={% url 'StudentLoginAction' %} onsubmit="return validate(this);">
+			{% csrf_token %}
+		<div class="form-group">
+		<label for="username">Username </label>
+		<input type="text" id="username " name="t1" required >
+		</div>
+		<div class="form-group">
+		<label for="password">Password</label>
+		<input type="password" id="password" name="t2" required>
+		</div>
+		<div class="button-group">
+		<button type="submit">Login</button>
+		</div>
+		</form>
+		</div>
+		</div>
+		</div>
+					
+	</body>
+</html>

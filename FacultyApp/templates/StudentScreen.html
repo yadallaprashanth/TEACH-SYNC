@@ -1,0 +1,62 @@
+{% load static %}
+
+<html>
+<head>
+    <title>TeachSync</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+</head>
+<body class="third">
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Student Dashboard</h2>
+            <ul>
+                <li><a href="{% url 'ViewSchedules' %}">View Lecture Schedules</a></li>
+                <li><a href="{% url 'ViewPublications' %}">View Faculty Publications</a></li>
+                <li><a href="{% url 'DownloadMarks' %}">Download Marksheets</a></li>
+                <li><a href="{% url 'ViewEngagement' %}">View Faculty Engagements</a></li>
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <h2>Dashboard</h2>
+          
+            <div class="student-data">
+                <p> Welcome to Student Dashboard</p>
+              {% if view_lecture_schedules %}
+              <div id="lecture-schedules-data" >
+                <h3>Lecture Schedules</h3>
+                  {{ data|safe }}
+              </div>
+              {% endif %}
+
+              {% if view_publication_data %}
+              <div id="publication-data">
+                  <h3>Publications</h3>
+                  {{ data|safe }}
+              </div>
+              {% endif %}
+
+
+
+              {% if view_marks_data %}
+                  <div id="marks-data">
+                      <h3>Marks Data</h3>
+                      {{ data|safe }}
+                  </div>
+              {% endif %}
+
+              {% if view_engagement_data %}
+                  <div id="engagement-data " >
+                      <h3>Engagement Data</h3>
+                      {{ data|safe }}
+                  </div>
+              {% endif %}
+                </div>
+        </div>
+    </div>
+      
+      </body>
+</html>

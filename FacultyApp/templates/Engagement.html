@@ -1,0 +1,118 @@
+{% load static %}
+<html>
+<head>
+<title>TeachSync</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+<script language="javascript">
+	function validate(formObj)
+	{
+	if(formObj.t1.value.length==0)
+	{
+	alert("Please Enter Event name");
+	formObj.t1.focus();
+	return false;
+	}
+	if(formObj.t2.value.length==0)
+	{
+	alert("Please Enter from Date");
+	formObj.t2.focus();
+	return false;
+	}
+	if(formObj.t3.value.length==0)
+	{
+	alert("Please Enter to Date");
+	formObj.t3.focus();
+	return false;
+	}
+	
+	if(formObj.t4.value.length==0)
+	{
+	alert("Please Enter Venue Name");
+	formObj.t4.focus();
+	return false;
+	}
+	if(formObj.t5.value.length==0)
+	{
+	alert("Please Enter Place");
+	formObj.t5.focus();
+	return false;
+	}
+	if(formObj.t6.value.length==0)
+	{
+	alert("Please Enter State");
+	formObj.t6.focus();
+	return false;
+	}
+	if(formObj.t7.value.length==0)
+	{
+	alert("Please Upload Participation Certificate");
+	formObj.t7.focus();
+	return false;
+	}
+	return true;
+	}
+	</script>
+	<script language="javascript" type="text/javascript" src="{% static 'datetimepicker.js' %}">
+</script>
+</head>
+<body class="third">
+	<div class="dashboard">
+	<div class="sidebar">
+	<h2>Faculty Dashboard</h2>
+	<ul>      
+     <li><a href="{% url 'SubjectsSchedules' %}">Manage Teaching Subjects &Schedules</a></li>
+	 <li><a href="{% url 'ManagePublications' %}">Manage Publications</a></li>
+	 <li><a href="{% url 'UploadMarks' %}">Add Marksheets</a></li>
+	  <li><a href="{% url 'Engagement' %}">Engagements</a></li>
+	 <li><a href="{% url 'index' %}">Logout</a></li>
+   </ul>               
+        </div>
+        <div class="main">
+			<h2>Engagements</h2>
+			<div class="card-container"> 
+<form name="f1" method="post" action={% url 'EngagementAction' %} enctype="multipart/form-data" onsubmit="return validate(this);">
+{% csrf_token %}<br/>
+   
+   <center><font size="" color="red"><center>{{ data }}</center></font>
+   <div class="form-container">
+
+						<table align="center" width="30%" >
+			 <tr><td>Engagement&nbsp;Description</td>
+			 <td><input type="text" name="t1" style="font-family: Comic Sans MS" size="25"></td></tr>
+
+			 <tr><Td>From&nbsp;Conduct&nbsp;Date</td><td>
+<input name="t2" type="Text" id="demo" maxlength="25" size="20" class="c2" ><a href="javascript:NewCal('demo','ddmmyyyy',false,24)"><img src="{% static 'cal.gif' %}" width="16" height="16" border="0" alt="Pick a date"></a>
+	  		<span class="descriptions"></span>
+</td></tr>	
+
+<tr><Td>To&nbsp;Conduct&nbsp;Date</td><td>
+<input name="t3" type="Text" id="demo1" maxlength="25" size="20" class="c2" ><a href="javascript:NewCal('demo1','ddmmyyyy',false,24)"><img src="{% static 'cal.gif' %}" width="16" height="16" border="0" alt="Pick a date"></a>
+	  		<span class="descriptions"></span>
+</td></tr>	
+         
+		  <tr><td>Venue</td><td><input name="t4" type="text" size="35"></td></tr>
+
+			<tr><td>Place</td>
+			<td><input name="t5" type="Text" size="35"></td></td></tr>
+
+		    
+		   <tr><td>State</td><td><input type="text" name="t6" style="font-family: Comic Sans MS" size=50/></td></tr>
+
+		   <tr><td>Engagement&nbsp;Type</td><td><select name="t7">
+		   <option value="Speaker">Speaker</option>
+		   <option value="Invigilation">Invigilation</option>
+		   <option value="Reviewer">Reviewer</option>
+		   <option value="Other">Other</option>
+		   </select>
+		   </td></tr>
+<tr><td></td><td><div class="submit-container"><input type="submit" value="Submit"></td></div>
+			</table>
+				</div>	
+					
+				</div>
+				
+			</div>		
+	</body>
+</html>

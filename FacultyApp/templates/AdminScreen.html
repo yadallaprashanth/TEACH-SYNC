@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeachSync</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+  </head>
+  <body class="third">
+    <div class="dashboard">
+      <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+          <li><a href="{% url 'AddFaculty' %}">Add Faculty Details</a></li>
+          <li><a href="{% url 'AddStudent' %}">Add Student Details</a></li>
+          <li><a href="{% url 'ViewFaculty' %}">View Faculty Details</a></li>
+          <li><a href="{% url 'ViewStudent' %}">View Student Details</a></li>
+          <li><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+      </div>
+      <div class="main">
+        {% if view_faculty %}
+        <div id="faculty-data">
+          <h2>Faculty Details</h2>
+          {{ data|safe }}
+        </div>
+        {% endif %}
+        {% if view_student %}
+        <div id="student-data">
+          <h2>Student Details</h2>
+          {{ data|safe }}
+        </div>
+        {% endif %}
+
+        <h2>Dashboard</h2>
+        <div class="dashboard-cards">
+          <div class="card total-students">
+            <h3>Total Students</h3>
+            <p>{{ total_student|default:5 }}</p>
+          </div>
+          <div class="card total-faculty">
+            <h3>Total Faculty</h3>
+            <p>{{ total_faculty|default:10 }}</p>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+          <div class="chart">
+            <h3>Student Distribution</h3>
+            <canvas id="studentChart"></canvas>
+          </div>
+          <div class="chart">
+            <h3>Faculty Distribution</h3>
+            <canvas id="facultyChart"></canvas>
+          </div>
+        </div>
+        <br />
+        <div class="charts">
+          <div class="chart">
+            <h3>Year Distribution</h3>
+            <canvas id="yearChart"></canvas>
+          </div>
+          <div class="chart">
+            <h3>Technologies Teaching</h3>
+            <canvas id="techChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+       // Pie Chart for Student Distribution
+       const ctx1 = document.getElementById('studentChart').getContext('2d');
+       const studentChart = new Chart(ctx1, {
+         type: 'pie',
+         data: {
+           labels: ['B.Tech', 'M.Tech', 'B.Sc', 'M.Sc'],
+           datasets: [{
+             data: [{{ student_btech | default:2}}, {{ student_mtech | default:1}}, {{ student_bsc|default:1 }}, {{ student_msc|default:2 }}],
+             backgroundColor: ['#3498db', '#2ecc71', '#f7915a', '#d42783'],
+           }]
+         },
+         options: {
+           responsive: true
+         }
+       });
+
+       // Area Chart for Year Distribution
+       const ctx2 = document.getElementById('yearChart').getContext('2d');
+       const yearChart = new Chart(ctx2, {
+         type: 'line',
+         data: {
+           labels: ['First Year', 'Second Year', 'Third Year', 'Fourth Year'],
+           datasets: [{
+             label: 'Students Per Year',
+             data: [{{ year_first|default:1 }}, {{ year_second|default:2 }}, {{ year_third|default:3 }}, {{ year_fourth|default:1 }}],
+             borderColor: '#FF6384',
+             backgroundColor: 'rgba(255, 99, 132, 0.2)',
+             fill: true, // Make it an area chart by enabling the fill
+             tension: 0.4
+           }]
+         },
+         options: {
+           responsive: true,
+           scales: {
+             x: { title: { display: true, text: 'Year' } },
+             y: { beginAtZero: true, title: { display: true, text: 'Number of Students' } }
+           }
+         }
+       });
+
+       // Bar Chart for Technologies Teaching
+       const ctx3 = document.getElementById('techChart').getContext('2d');
+       const techChart = new Chart(ctx3, {
+         type: 'bar',
+         data: {
+           labels: ['Java', 'Python', 'Database', 'C', 'CPP','CO','Maths'],
+           datasets: [{
+             label: 'Technologies Teaching',
+             data: [{{ tech_java|default:2 }}, {{ tech_python|default:1 }}, {{ tech_database|default:3 }}, {{ tech_C|default:4 }}, {{ tech_CPP|default:1}},{{ tech_CO|default:2 }},{{ tech_Maths|default:3 }}],
+             backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#e74c3c', '#1abc9c'],
+           }]
+         },
+         options: {
+           responsive: true,
+           scales: {
+             y: { beginAtZero: true }
+           }
+         }
+       });
+
+      // Pyramid Chart for Faculty Hierarchy (Custom Implementation)
+       const ctx4 = document.getElementById('facultyChart').getContext('2d');
+       const facultyChart = new Chart(ctx4, {
+         type: 'bar',
+         data: {
+           labels: ['Senior Faculty', 'Mid-level Faculty', 'Junior Faculty'],
+           datasets: [{
+             label: 'Faculty Hierarchy',
+             data: [{{ faculty_senior|default:3 }}, {{ faculty_midlevel|default:2 }}, {{ faculty_junior|default:5 }}],
+             backgroundColor: ['#3498db', '#2ecc71', '#e74c3c'],
+           }]
+         },
+         options: {
+           responsive: true,
+           indexAxis: 'y', // Horizontal bar chart for pyramid effect
+           scales: {
+             x: { beginAtZero: true }
+           },
+           plugins: {
+             legend: { display: false } // Hide legend for pyramid look
+           }
+         }
+       });
+    </script>
+  </body>
+</html>

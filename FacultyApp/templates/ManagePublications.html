@@ -1,0 +1,212 @@
+{% load static %}
+<html>
+<head>
+<title>TeachSync</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="icon" href="{% static 'images/logo.webp' %}" type="image/x-icon">
+<script language="javascript">
+	function validate(formObj)
+	{
+	if(formObj.t1.value.length==0)
+	{
+	alert("Please Enter Paper title");
+	formObj.t1.focus();
+	return false;
+	}
+	if(formObj.t2.value.length==0)
+	{
+	alert("Please Enter List of Authors");
+	formObj.t2.focus();
+	return false;
+	}
+	if(formObj.t3.value.length==0)
+	{
+	alert("Please Enter Journal Date");
+	formObj.t3.focus();
+	return false;
+	}
+	
+	if(formObj.t4.value.length==0)
+	{
+	alert("Please Enter Issue No");
+	formObj.t4.focus();
+	return false;
+	}
+	if(formObj.t5.value.length==0)
+	{
+	alert("Please Enter Total Pages");
+	formObj.t5.focus();
+	return false;
+	}
+	if(formObj.t6.value.length==0)
+	{
+	alert("Please Enter Publisher name");
+	formObj.t6.focus();
+	return false;
+	}
+	if(formObj.t7.value.length==0)
+	{
+	alert("Please enter publication date");
+	formObj.t7.focus();
+	return false;
+	}
+	if(formObj.t9.value.length==0)
+	{
+	alert("Please enter DOI No");
+	formObj.t9.focus();
+	return false;
+	}
+	if(formObj.t10.value.length==0)
+	{
+	alert("Please enter publish URL");
+	formObj.t10.focus();
+	return false;
+	}
+	if(formObj.t11.value.length==0)
+	{
+	alert("Please upload journal paper");
+	formObj.t11.focus();
+	return false;
+	}
+	return true;
+	}
+	</script>
+	<script language="javascript" type="text/javascript" src="{% static 'datetimepicker.js' %}">
+
+
+function validate(formObj) {
+  // Empty field validation
+  if (formObj.t1.value.length == 0) {
+    alert("Please Enter Paper title");
+    formObj.t1.focus();
+    return false;
+  }
+  // ... add more validations here ...
+
+  // Date format validation
+  var dateRegex = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+  if (!dateRegex.test(formObj.t7.value)) {
+    alert("Invalid date format for Publication Date");
+    formObj.t7.focus();
+    return false;
+  }
+
+  // File upload validation
+  if (formObj.t11.value.length == 0) {
+    alert("Please upload a paper");
+    formObj.t11.focus();
+    return false;
+  }
+
+  // DOI format validation
+  var doiRegex = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
+  if (!doiRegex.test(formObj.t9.value)) {
+    alert("Invalid DOI format");
+    formObj.t9.focus();
+    return false;
+  }
+
+  // URL format validation
+  var urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  if (!urlRegex.test(formObj.t10.value)) {
+    alert("Invalid URL format for Published Article URL");
+    formObj.t10.focus();
+    return false;
+  }
+
+  return true;
+}
+
+
+</script>
+</head>
+<body class="third">
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Faculty Dashboard</h2>
+            <ul> 
+     <li><a href="{% url 'SubjectsSchedules' %}">Manage Teaching Subjects &Schedules</a></li>
+	 <li><a href="{% url 'ManagePublications' %}">Manage Publications</a></li>
+	 <li><a href="{% url 'UploadMarks' %}">Add Marksheets</a></li>
+	  <li><a href="{% url 'Engagement' %}">Engagements</a></li>
+	 <li><a href="{% url 'index' %}">Logout</a></li>
+   </ul>          
+  </div>
+  <div class="main">
+	<h2>Manage Publications</h2>
+	<div class="card-container">
+<form name="f1" method="post" action={% url 'ManagePublicationsAction' %} enctype="multipart/form-data" onsubmit="return validate(this);">
+{% csrf_token %}   
+<center><font size="" color="red"><center>{{ data }}</center></font>
+
+<div class="form-container">
+<table align="center" width="30%">
+<tr>
+<td>Research Paper Title</td>
+<td><input type="text" name="t1" style="font-family: Comic Sans MS" size="50"></td>
+</tr>
+<tr>
+<td>List of Authors</td>
+<td><input name="t2" type="text" size="35"></td>
+</tr>
+<tr>
+<td>Journal Name</td>
+<td><input name="t3" type="text" size="35"></td>
+</tr>
+<tr>
+<td>Volume Issue No</td>
+<td><input name="t4" type="Text" size="25"></td>
+</tr>
+<tr>
+<td>Total Pages</td>
+<td><input type="text" name="t5" style="font-family: Comic Sans MS" size="20"/></td>
+</tr>
+<tr>
+<td>Publisher Name</td>
+<td><input type="text" name="t6" style="font-family: Comic Sans MS" size="50"/></td>
+</tr>
+<tr>
+	<td>Publication Date</td>
+	<td>
+	  <input name="t7" type="Text" id="demo1" maxlength="25" size="20" class="cal-date-input">
+	  <a href="javascript:NewCal('demo1','ddmmyyyy',false,24)">
+		<img src="{% static 'cal.gif' %}" class="cal-icon" width="16px"
+		height="16px" alt="Pick a date">
+	  </a>
+	  <span class="descriptions"></span>
+	</td>
+  </tr>
+  
+<tr>
+<td>Indexing</td>
+<td><select name="t8">
+<option value="Scopus">Scopus</option>
+<option value="WOS">WOS</option>
+<option value="SCI">SCI</option>
+<option value="SCIE">SCIE</option>
+<option value="UGC">UGC</option>
+</select></td>
+</tr>
+<tr>
+<td>DOI No</td>
+<td><input type="text" name="t9" style="font-family: Comic Sans MS" size="20"/></td>
+</tr>
+<tr>
+<td>Published Article URL</td>
+<td><input type="text" name="t10" style="font-family: Comic Sans MS" size="50"/></td>
+</tr>
+<tr>
+<td>Upload Paper</td>
+<td><input name="t11" type="file" size="20"></td>
+</tr>
+<tr>
+<td></td>
+<td><div class="submit-container"><input type="submit" value="Submit"></td></div>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
